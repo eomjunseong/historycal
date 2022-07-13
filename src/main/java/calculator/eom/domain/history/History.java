@@ -1,6 +1,7 @@
 package calculator.eom.domain.history;
 
 import calculator.eom.domain.member.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,5 +18,6 @@ public class History {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
+    @JsonIgnore
     private Member member;
 }

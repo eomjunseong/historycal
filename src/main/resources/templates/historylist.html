@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <link th:href="@{/css/bootstrap.min.css}"
+        href="../css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    tbody>tr {
+      counter-increment: aaa;
+    }
+    tbody>tr>td:first-child:before {
+      content: counter(aaa) " ";
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" style="max-width: 600px">
+  <div class="py-5 text-center">
+    <h2>히스토리 리스트</h2>
+  </div>
+
+
+  <hr class="my-4">
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>목차</th><th>연산</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="item : ${items}">
+          <td></td>
+          <td th:text="${item.content}">B</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div> <!-- /container -->
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package calculator.eom.web.login;
+package calculator.eom.domain.login;
 
 import lombok.Data;
 

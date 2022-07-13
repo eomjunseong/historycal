@@ -1,6 +1,5 @@
-package calculator.eom.web.login;
+package calculator.eom.domain.login;
 
-import calculator.eom.domain.login.LoginService;
 import calculator.eom.domain.member.Member;
 import calculator.eom.web.SessionConst;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
