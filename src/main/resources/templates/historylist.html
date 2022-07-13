@@ -26,16 +26,27 @@
     <table class="table">
       <thead>
         <tr>
-          <th>목차</th><th>연산</th>
+          <th>목차</th>
+          <th>연산</th>
+          <th>삭제</th>
         </tr>
       </thead>
       <tbody>
         <tr th:each="item : ${items}">
           <td></td>
           <td th:text="${item.content}">B</td>
+
+          <td>
+            <button th:onclick="|location.href='@{/history/delete/{historyId}(historyId=${item.id})}'|" type="button">삭제
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
+  </div>
+  <div class="col">
+    <button class="w-100 btn btn-secondary btn-lg" onclick="location.href='items.html'" th:onclick="|location.href='@{/}'|"
+            type="button">취소</button>
   </div>
 
 </div> <!-- /container -->

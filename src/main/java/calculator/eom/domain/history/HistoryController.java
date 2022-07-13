@@ -25,7 +25,7 @@ public class HistoryController {
     private final HistoryRespository historyRespository;
 
     @GetMapping("/list")
-    public String items(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,Model model) {
+    public String items(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
         //로그인 여부 체크
         //세션에 회원 데이터가 없으면 home
         System.out.println("-----$$$$$$$$$$$$$$$$$$$$$");
@@ -36,7 +36,7 @@ public class HistoryController {
         model.addAttribute("member", loginMember);
 
 
-        List<History> items = historyRespository.findByMember(loginMember);
+        List<History> items = historyService.findByMember(loginMember);
         for (History item : items) {
             item.getContent();
         }
@@ -60,8 +60,7 @@ public class HistoryController {
     }
 
     @PostMapping("/create")
-    public String  addHistory(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model,@RequestBody HashMap<String, Object> map){
-        System.out.println("2222222222222222222222222");
+    public String addHistory(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model, @RequestBody HashMap<String, Object> map) {
         String sendData = (String) map.get("sendData");
         System.out.println(sendData);
 
@@ -91,4 +90,21 @@ public class HistoryController {
         return "calculator_member";
     }
 
+    @GetMapping("/delete/{historyId}")
+    public String deleteHistory(@PathVariable long historyId,
+                                @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
+                                Model model) {
+
+        //세션에 회원 데이터가 없으면 home
+        if (loginMember == null) {
+            return "home";
+        }
+        //세션이 유지되면 로그인으로 이동
+        model.addAttribute("member", loginMember);
+
+        History byId = historyService.findById(historyId);
+        historyRespository.delete(byId);
+
+        return "redirect:/history/list";
+    }
 }
