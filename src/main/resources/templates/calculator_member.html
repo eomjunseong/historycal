@@ -24,8 +24,9 @@
 
 <div class="container" style="max-width: 600px">
     <div class="py-5 text-center">
-        <h2>게스트용 계산기 </h2>
+        <h2>히스토리 계산기(회원용) </h2>
     </div>
+
     <table border="1">
         <tr>
             <td colspan="4">
@@ -96,7 +97,7 @@
     			type: "POST", //전송 타입
     			async: true, //비동기 여부
     			timeout: 5000, //타임 아웃 설정
-    			dataType: "JSON", //응답받을 데이터 타입 (XML,JSON,TEXT,HTML,JSONP)
+    			dataType: "text", //응답받을 데이터 타입 (XML,JSON,TEXT,HTML,JSONP)
     			contentType: "application/json; charset=utf-8", //헤더의 Content-Type을 설정
     			success: function(data) {
                     alert("성공");

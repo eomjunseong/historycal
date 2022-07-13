@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -53,16 +54,13 @@ public class HistoryController {
 
         History history = new History();
         history.setContent(sendData);
-
+        history.setMember(member);
+        member.getHistories().add(history);
         History newHistory = historyService.createHistory(history);
 
-        history.setMember(member);
-        member.getHistories().add(newHistory);
-
-        System.out.println("newHistory.getId() = " + newHistory.getId());
-        System.out.println("newHistory.getId() = " + newHistory.getContent());
-        System.out.println("newHistory.getId() = " + newHistory.getMember().getId());
-
+        Member byId = memberService.findById(member.getId());
+        List<History> histories = byId.getHistories();
+        System.out.println("histories.size() = " + histories.size());
 
 //        //연관 관계 설정 --> 변경감지라고 생각
 //        history1.setMember(member);
