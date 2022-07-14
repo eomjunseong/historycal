@@ -96,22 +96,6 @@
             var calStr = display.value+" = "+result ;
             console.log(calStr);
 
-            let sendData = calStr;
-
-            var reqURL = "http://localhost:8080/history/create"; // 요청 주소
-            var jsonData = { // Body에 첨부할 json 데이터
-    				"senData" : calStr
-            };
-            $.ajax({
-    			// [요청 시작 부분]
-    			url: reqURL, //주소
-    			data: JSON.stringify(jsonData), //전송 데이터
-    			type: "POST", //전송 타입
-    			async: true, //비동기 여부
-    			timeout: 5000, //타임 아웃 설정
-    			dataType: "JSON", //응답받을 데이터 타입 (XML,JSON,TEXT,HTML,JSONP)
-    			contentType: "application/json; charset=utf-8", //헤더의 Content-Type을 설정
-    		});
         }
         function reset() {
             document.getElementById('display').value = "";
