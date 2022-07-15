@@ -27,4 +27,10 @@ public class Member {
 
     @OneToMany(mappedBy = "member",fetch = FetchType.LAZY)
     private List<History> histories = new ArrayList<>();
+
+    //add History
+    public void addHistory(History history){
+        histories.add(history);
+        history.setMember(this);
+    }
 }

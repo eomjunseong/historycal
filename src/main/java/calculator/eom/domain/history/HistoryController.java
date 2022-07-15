@@ -19,10 +19,8 @@ import java.util.Optional;
 @RequestMapping("/history")
 public class HistoryController {
 
-    private final MemberRepository memberRepository;
     private final HistoryService historyService;
     private final MemberService memberService;
-    private final HistoryRespository historyRespository;
 
     @GetMapping("/list")
     public String items(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
@@ -71,21 +69,18 @@ public class HistoryController {
         //세션이 유지되면 로그인으로 이동
         model.addAttribute("member", loginMember);
 
-        Member member = memberService.findById(loginMember.getId());
+        //member찾고
+        Member member = memberService.findById(loginMember.getId()); // em
 
         History history = new History();
         history.setContent(sendData);
-        history.setMember(member);
-        member.getHistories().add(history);
-        History newHistory = historyService.createHistory(history);
 
-        Member byId = memberService.findById(member.getId());
-        List<History> histories = byId.getHistories();
-        System.out.println("histories.size() = " + histories.size());
+        member.addHistory(history);
 
-//        //연관 관계 설정 --> 변경감지라고 생각
-//        history1.setMember(member);
-
+        System.out.println("------------------------------");
+        //insert 쿼리 바로 날라갈것으로 예상
+        historyService.createHistory(history);
+        System.out.println("------------------------------");
 
         return "calculator_member";
     }
@@ -103,7 +98,7 @@ public class HistoryController {
         model.addAttribute("member", loginMember);
 
         History byId = historyService.findById(historyId);
-        historyRespository.delete(byId);
+        historyService.deleteById(byId);
 
         return "redirect:/history/list";
     }
