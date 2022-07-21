@@ -24,9 +24,9 @@ public class HistoryController {
 
     @GetMapping("/list")
     public String items(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
+
         //로그인 여부 체크
         //세션에 회원 데이터가 없으면 home
-        System.out.println("-----$$$$$$$$$$$$$$$$$$$$$");
         if (loginMember == null) {
             return "home";
         }
@@ -58,9 +58,11 @@ public class HistoryController {
     }
 
     @PostMapping("/create")
-    public String addHistory(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model, @RequestBody HashMap<String, Object> map) {
+    public String addHistory(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
+                             Model model,
+                             @RequestBody HashMap<String, Object> map) {
+
         String sendData = (String) map.get("sendData");
-        System.out.println(sendData);
 
         //세션에 회원 데이터가 없으면 home
         if (loginMember == null) {
@@ -68,19 +70,7 @@ public class HistoryController {
         }
         //세션이 유지되면 로그인으로 이동
         model.addAttribute("member", loginMember);
-
-        //member찾고
-        Member member = memberService.findById(loginMember.getId()); // em
-
-        History history = new History();
-        history.setContent(sendData);
-
-        member.addHistory(history);
-
-        System.out.println("------------------------------");
-        //insert 쿼리 바로 날라갈것으로 예상
-        historyService.createHistory(history);
-        System.out.println("------------------------------");
+        historyService.createHistory(loginMember.getId(),sendData);
 
         return "calculator_member";
     }
