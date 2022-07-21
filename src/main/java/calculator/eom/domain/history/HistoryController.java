@@ -4,6 +4,7 @@ import calculator.eom.domain.member.Member;
 import calculator.eom.domain.member.MemberRepository;
 import calculator.eom.domain.member.MemberService;
 import calculator.eom.web.SessionConst;
+import calculator.eom.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +24,7 @@ public class HistoryController {
     private final MemberService memberService;
 
     @GetMapping("/list")
-    public String items(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
+    public String items(@Login Member loginMember, Model model) {
 
         //로그인 여부 체크
         //세션에 회원 데이터가 없으면 home
@@ -43,7 +44,7 @@ public class HistoryController {
     }
 
     @GetMapping("/calculator_member")
-    public String addForm(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
+    public String addForm(@Login Member loginMember, Model model) {
         //세션에 회원 데이터가 없으면 home
         if (loginMember == null) {
             return "home";
@@ -58,7 +59,7 @@ public class HistoryController {
     }
 
     @PostMapping("/create")
-    public String addHistory(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
+    public String addHistory(@Login Member loginMember,
                              Model model,
                              @RequestBody HashMap<String, Object> map) {
 
@@ -77,7 +78,7 @@ public class HistoryController {
 
     @GetMapping("/delete/{historyId}")
     public String deleteHistory(@PathVariable long historyId,
-                                @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
+                                @Login Member loginMember,
                                 Model model) {
 
         //세션에 회원 데이터가 없으면 home

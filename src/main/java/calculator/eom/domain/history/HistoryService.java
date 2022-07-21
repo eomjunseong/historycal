@@ -15,15 +15,13 @@ public class HistoryService {
 
     private final HistoryRespository historyRespository;
     private final MemberRepository memberRepository;
-    public History createHistory(Long memberId,String sendData){
+    public void createHistory(Long memberId,String sendData){
 
         Member member = memberRepository.findById(memberId).get();
-
         History history= new History();
         history.setContent(sendData);
+        History save = historyRespository.save(history);
         history.setMember(member);
-
-        return historyRespository.save(history);
     }
 
     public List<History> findByMember(Member member){
